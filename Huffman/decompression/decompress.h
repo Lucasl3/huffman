@@ -1,8 +1,7 @@
 #ifndef decompress_h
 #define decompress_h
 #include "../compression/hufftree.h"
-
-long long int get_file_length(FILE *file);
+#include "../readfile/readfile.h"
 
 int is_bit_i_set(unsigned char c, int i);
 

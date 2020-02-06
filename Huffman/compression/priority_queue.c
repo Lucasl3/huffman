@@ -1,4 +1,4 @@
-#include "frequency.h"
+#include "priority_queue.h"
 
 struct priority_queue{
     node *head;

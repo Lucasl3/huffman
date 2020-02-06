@@ -1,5 +1,5 @@
 #include "hufftree.h"
-#include "frequency.h"
+#include "priority_queue.h"
 #include "hash_table.h"
 #include "header.h"
 #include "compress.h"

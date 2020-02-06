@@ -1,9 +1,10 @@
 #include "./compression/hufftree.h"
 #include "./compression/compress.h"
 #include "./compression/hash_table.h"
-#include "./compression/frequency.h"
+#include "./compression/priority_queue.h"
 #include "./compression/header.h"
 #include "./decompression/decompress.h"
+#include "./readfile/readfile.h"
 int main(){
     unsigned char element;
     int i, frequency[256] = {0}, h;
@@ -43,7 +44,6 @@ int main(){
     long long int bytes_length = get_file_length(compressed);
     unsigned char *trash_and_size_tree = get_trash_and_size_tree(compressed);
     node *hufftree = NULL;
-    int size = trash_and_size_tree[1];
     hufftree = create_tree_from_file(compressed, hufftree);
     decompress(compressed, hufftree, trash_and_size_tree, bytes_length);
     print_tree_preorder(hufftree);

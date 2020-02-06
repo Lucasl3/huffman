@@ -1,4 +1,4 @@
-#include "frequency.h"
+#include "priority_queue.h"
 #include "hufftree.h"
 int is_leaf(node *bt){
     return (bt->left == NULL && bt->right == NULL);
@@ -38,28 +38,21 @@ node *build_tree(pq *pq, node *bt){
 
 node *create_tree_from_file(FILE *compressed, node *huff_tree){
     // if(size < 0) return huff_tree;
-    unsigned char character;
-    fscanf(compressed, "%c", &character);
-    void *data = (void*) malloc(sizeof(void));
+    unsigned char byte;
+    fscanf(compressed, "%c", &byte);
     unsigned char *aux = (unsigned char*) malloc(sizeof(unsigned char));
-    *aux = character;
-    data = (void*) aux;
-    printf("No: %c\n", *(unsigned char*)data);
-    if(character == '*'){
-        huff_tree = create_tree_node((void*)data, 0, NULL, NULL);
+    *aux = byte;
+    printf("Nó: %c\n", byte);
+    if(byte == '*'){
+        huff_tree = create_tree_node(aux, 0, NULL, NULL);
         huff_tree->left = create_tree_from_file(compressed, huff_tree->left);
         huff_tree->right = create_tree_from_file(compressed, huff_tree->right);
+    } else if(byte == '\\'){
+        fscanf(compressed, "%c", &byte);
+        *aux = byte;
+        huff_tree = create_tree_node(aux, 0, NULL, NULL);
     } else{
-        if(character == 92){
-            fscanf(compressed, "%c", &character);
-            *aux = character;
-            data = (void*) aux;
-            huff_tree = create_tree_node((void*)data, 0, NULL, NULL);
-        } else{
-            *aux = character;
-            data = (void*) aux;
-            huff_tree = create_tree_node((void*)data, 0, NULL, NULL);
-        }
+        huff_tree = create_tree_node(aux, 0, NULL, NULL);
     }
     return huff_tree;
 }

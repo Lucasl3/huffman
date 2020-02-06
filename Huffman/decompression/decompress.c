@@ -1,11 +1,5 @@
 #include "decompress.h"
 
-long long int get_file_length(FILE *file){
-    fseek(file, 0, SEEK_END);
-    long long int length = ftell(file);
-    rewind(file);
-    return length;
-}
 
 int is_bit_i_set(unsigned char c, int i){
     unsigned char mask = 1 << i;

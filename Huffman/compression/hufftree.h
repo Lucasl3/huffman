@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "frequency.h"
+#include "priority_queue.h"
 typedef struct node{
     void *data;
     long int frequency;

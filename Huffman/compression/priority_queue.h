@@ -1,5 +1,5 @@
-#ifndef frequency_h
-#define frequency_h
+#ifndef priority_queue_h
+#define priority_queue_h
 #include "hufftree.h"
 typedef struct node node;
 typedef struct pq{
