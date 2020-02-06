@@ -21,21 +21,6 @@ node *create_node(long int f){
     return new_node;
 }
 
-node *add(node *head, unsigned char data){
-    if(head == NULL){
-        node *new_node = create_node(1);
-        *(unsigned char*)new_node->data = data;
-        return new_node;
-    } else{
-        if(*(unsigned char*)head->data == data){
-            head->frequency++;
-            return head;
-        }
-        head->next = add(head->next, data);
-        return head;
-    }
-}
-
 void enqueue_pq(pq *pq, node *head){
     node *new_node = (node*) malloc(sizeof(node));
     new_node->data = head->data;

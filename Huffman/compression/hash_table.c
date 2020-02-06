@@ -74,7 +74,7 @@ void map_bit(node *bt, ht *hash, queue *queue){
         enqueue(queue, 1);
         map_bit(bt->right, hash, queue);
         dequeue(queue);
-    } else if(bt->left == NULL && bt->right == NULL){
+    } else if(is_leaf(bt)){
         add_hn(hash, queue, bt->data, bt->frequency);
     }
     return;
@@ -95,5 +95,4 @@ void print_ht(ht *hash){
             printf("frequency: %lld\n", hash->table[i]->frequency);
         }
     }
-    printf("Cont: %d\n", cont);
 }

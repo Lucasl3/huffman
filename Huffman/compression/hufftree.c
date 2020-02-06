@@ -44,16 +44,21 @@ node *create_tree_from_file(FILE *compressed, node *huff_tree){
     unsigned char *aux = (unsigned char*) malloc(sizeof(unsigned char));
     *aux = character;
     data = (void*) aux;
+    printf("No: %c\n", *(unsigned char*)data);
     if(character == '*'){
-        huff_tree = create_tree_node(data, 0, NULL, NULL);
+        huff_tree = create_tree_node((void*)data, 0, NULL, NULL);
         huff_tree->left = create_tree_from_file(compressed, huff_tree->left);
         huff_tree->right = create_tree_from_file(compressed, huff_tree->right);
     } else{
         if(character == 92){
             fscanf(compressed, "%c", &character);
-            huff_tree = create_tree_node(data, 0, NULL, NULL);
+            *aux = character;
+            data = (void*) aux;
+            huff_tree = create_tree_node((void*)data, 0, NULL, NULL);
         } else{
-            huff_tree = create_tree_node(data, 0, NULL, NULL);
+            *aux = character;
+            data = (void*) aux;
+            huff_tree = create_tree_node((void*)data, 0, NULL, NULL);
         }
     }
     return huff_tree;
