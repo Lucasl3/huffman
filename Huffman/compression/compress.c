@@ -4,10 +4,12 @@
 #include "header.h"
 #include "compress.h"
 
-void compress(FILE *file, ht *hash, node *bt){
+void compress(FILE *file, ht *hash, node *bt, char *file_path){
     unsigned char element;
     int i;
-    FILE *compressed = fopen("compressed.txt", "wb");
+    printf("Starting compression\n\n");
+    strcat(file_path, ".huff\0");
+    FILE *compressed = fopen(file_path, "wb");
     fprintf(compressed, "%c%c", trash, size_tree);
     print_tree_on_file(compressed, bt);
     unsigned int byte = 0;
@@ -38,6 +40,8 @@ void compress(FILE *file, ht *hash, node *bt){
         unsigned char aux = byte;
         fprintf(compressed, "%c", aux);
     }
+    printf("Compressed file in %s\n", file_path);
+    printf("Successfully compressed file\n");
     fclose(file);
     fclose(compressed);
 }
