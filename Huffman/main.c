@@ -25,9 +25,11 @@ void start_compression(char *file_path){
         }
     }
     node *bt = create_empty_node();
+    printf("Creating hufftree...\n");
     bt = build_tree(pq, bt);
     queue *queue = create_queue();
     ht *hash_table = create_ht();
+    printf("Maping bits...\n");
     map_bit(bt, hash_table, queue);
     rewind(file);
     int treesize = 0;
@@ -35,6 +37,14 @@ void start_compression(char *file_path){
     create_header(trash_size(hash_table), treesize);
     print_ht(hash_table);
     compress(file, hash_table, bt, file_path);
+}
+void start_decompression(char *file_path){
+    FILE *compressed = fopen(file_path, "r");
+    long long int bytes_length = get_file_length(compressed);
+    unsigned char *trash_and_size_tree = get_trash_and_size_tree(compressed);
+    node *hufftree = NULL;
+    hufftree = create_tree_from_file(compressed, hufftree);
+    decompress(file_path, compressed, hufftree, trash_and_size_tree, bytes_length);
 }
 int main(){
     int option;
@@ -46,29 +56,21 @@ int main(){
         scanf("%d", &option);
         if(option == 1){
             char file[100];
-            printf("Digite o nome do arquivo: ");
+            printf("Type the file name: ");
             scanf("%s", file);
             printf("\n");
             start_compression(file);
         } else if(option == 2){
             char file[100];
-            printf("Digite o nome do arquivo: ");
+            printf("Type the file name: ");
             scanf("%s", file);
             printf("\n");
-            
+            start_decompression(file);
         } else{
             printf("System shutdown\n");
             return 0;
         }
         
     }
-    FILE *compressed = fopen("compressed.txt", "r");
-    long long int bytes_length = get_file_length(compressed);
-    unsigned char *trash_and_size_tree = get_trash_and_size_tree(compressed);
-    node *hufftree = NULL;
-    hufftree = create_tree_from_file(compressed, hufftree);
-    decompress(compressed, hufftree, trash_and_size_tree, bytes_length);
-    print_tree_preorder(hufftree);
-    printf("%d\n", trash_and_size_tree[1]);
     return 0;
 }

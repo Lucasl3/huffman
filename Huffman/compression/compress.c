@@ -7,7 +7,6 @@
 void compress(FILE *file, ht *hash, node *bt, char *file_path){
     unsigned char element;
     int i;
-    printf("Starting compression\n\n");
     strcat(file_path, ".huff\0");
     FILE *compressed = fopen(file_path, "wb");
     fprintf(compressed, "%c%c", trash, size_tree);
@@ -26,7 +25,6 @@ void compress(FILE *file, ht *hash, node *bt, char *file_path){
                 byte = byte | 1;
             }
             if(byte_size == 8){
-            // printf(" ");
             unsigned char aux = byte;
             byte_size = 0;
             fprintf(compressed, "%c", aux);

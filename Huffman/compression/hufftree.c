@@ -42,7 +42,7 @@ node *create_tree_from_file(FILE *compressed, node *huff_tree){
     fscanf(compressed, "%c", &byte);
     unsigned char *aux = (unsigned char*) malloc(sizeof(unsigned char));
     *aux = byte;
-    printf("Nó: %c\n", byte);
+    // printf("Nó: %d\n", byte);
     if(byte == '*'){
         huff_tree = create_tree_node(aux, 0, NULL, NULL);
         huff_tree->left = create_tree_from_file(compressed, huff_tree->left);

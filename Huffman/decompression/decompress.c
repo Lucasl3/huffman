@@ -19,8 +19,10 @@ unsigned char *get_trash_and_size_tree(FILE *compressed){
 
 }
 
-void decompress(FILE *compressed, node *hufftree, unsigned char *trash_and_tree_size, long long int bytes_lenght){
-    FILE *decompress = fopen("decompress.txt", "w");
+void decompress(char *compressed_file, FILE *compressed, node *hufftree, unsigned char *trash_and_tree_size, long long int bytes_lenght){
+    strcat(compressed_file, ".huffman\0");
+    FILE *decompress = fopen(compressed_file, "w");
+    unsigned char vai;
     unsigned char byte = 0;
     long long int read = 0;
     bytes_lenght = (long long int)(bytes_lenght - 2 - trash_and_tree_size[1]);
@@ -31,16 +33,15 @@ void decompress(FILE *compressed, node *hufftree, unsigned char *trash_and_tree_
         // printf("Byte: %d\n", byte);
         for(i=7;i>=0;i--){ 
             if(is_bit_i_set((unsigned char)byte, i)){
-                // printf("1");
                 current = current->right;
             } else{
-                // printf("0");
                 current = current->left;
             }
             if(is_leaf(current)){
+                vai = *(unsigned char*)current->data;
                 // printf(" Caractere: %c\n", *(unsigned char*)current->data);
+                fprintf(decompress, "%c", vai);
                 unsigned char *aux_byte = current->data;
-                fprintf(decompress, "%hhn", aux_byte);
                 current = hufftree;
             }
         }
@@ -49,16 +50,15 @@ void decompress(FILE *compressed, node *hufftree, unsigned char *trash_and_tree_
     fscanf(compressed, "%c", &byte);
     for(i=7;i>=trash_and_tree_size[0];i--){
         if(is_bit_i_set((unsigned int)byte, i)){
-            // printf("1");
             current = current->right;
         } else{
-            // printf("0");
             current = current->left;
         }
         if(is_leaf(current)){
             unsigned char *aux_byte = current->data;
+            vai = *(unsigned char*)current->data;
+            fprintf(decompress, "%c", vai);
             // printf(" Caractere: %c\n", *(unsigned char*)current->data);
-            fprintf(decompress, "%hhn", aux_byte);
             current = hufftree;
         }
     }
