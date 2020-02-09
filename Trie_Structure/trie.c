@@ -73,25 +73,17 @@ int hasChild(trie *letter){
     return FALSE;
 }
 int remove_from_trie(trie* root, char* word) {
-
     int level;
     int index;
     trie* current = root;
-
-    for (level = 0; word[level] != '\0'; ++level)
-    {
-
+    for (level = 0; word[level] != '\0'; ++level){
         index = alpha_key(word[level]);
-
-        if (!current->itens[index])
-        {
+        if (!current->itens[index]){
             printf("Palavra nao existe na trie.\n");
             return -1;
         }
-
         current = current->itens[index];
     }
-
     if (!current->isLeaf){
         printf("Palavra nao existe na trie.\n");
         return -1;
