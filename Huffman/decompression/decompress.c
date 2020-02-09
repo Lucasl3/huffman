@@ -30,7 +30,6 @@ void decompress(char *compressed_file, FILE *compressed, node *hufftree, unsigne
     node *current = hufftree;
     while(read < bytes_lenght - 1){
         fscanf(compressed, "%c", &byte);
-        // printf("Byte: %d\n", byte);
         for(i=7;i>=0;i--){ 
             if(is_bit_i_set((unsigned char)byte, i)){
                 current = current->right;
@@ -39,7 +38,6 @@ void decompress(char *compressed_file, FILE *compressed, node *hufftree, unsigne
             }
             if(is_leaf(current)){
                 vai = *(unsigned char*)current->data;
-                // printf(" Caractere: %c\n", *(unsigned char*)current->data);
                 fprintf(decompress, "%c", vai);
                 unsigned char *aux_byte = current->data;
                 current = hufftree;
@@ -62,5 +60,8 @@ void decompress(char *compressed_file, FILE *compressed, node *hufftree, unsigne
             current = hufftree;
         }
     }
+    printf("Decompressed file in %s\n", compressed_file);
+    printf("Successfully decompressed file\n");
+    fclose(compressed);
     fclose(decompress);
 }

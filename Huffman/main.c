@@ -39,11 +39,14 @@ void start_compression(char *file_path){
     compress(file, hash_table, bt, file_path);
 }
 void start_decompression(char *file_path){
+    printf("Starting decompression...\n");
     FILE *compressed = fopen(file_path, "r");
+    printf("Taking the header...\n");
     long long int bytes_length = get_file_length(compressed);
     unsigned char *trash_and_size_tree = get_trash_and_size_tree(compressed);
     node *hufftree = NULL;
     hufftree = create_tree_from_file(compressed, hufftree);
+    printf("Decompressing...\n");
     decompress(file_path, compressed, hufftree, trash_and_size_tree, bytes_length);
 }
 int main(){

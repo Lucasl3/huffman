@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "hufftree.h": "c",
+        "compress.h": "c",
+        "frequency.h": "c",
+        "priority_queue.h": "c"
+    }
+}
