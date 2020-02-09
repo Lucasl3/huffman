@@ -39,7 +39,6 @@ void decompress(char *compressed_file, FILE *compressed, node *hufftree, unsigne
             if(is_leaf(current)){
                 vai = *(unsigned char*)current->data;
                 fprintf(decompress, "%c", vai);
-                unsigned char *aux_byte = current->data;
                 current = hufftree;
             }
         }
@@ -53,7 +52,6 @@ void decompress(char *compressed_file, FILE *compressed, node *hufftree, unsigne
             current = current->left;
         }
         if(is_leaf(current)){
-            unsigned char *aux_byte = current->data;
             vai = *(unsigned char*)current->data;
             fprintf(decompress, "%c", vai);
             // printf(" Caractere: %c\n", *(unsigned char*)current->data);
