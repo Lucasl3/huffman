@@ -24,7 +24,7 @@ int main () {
 	for(i = 0; i < items; i++) {
         // n = rand() % items;
 		AVL = add_avl(AVL, i);
-		ABB = add_abb(ABB, i);	
+		ABB = add_abb(ABB, i);
 	}
 	int compareABB = 0;
 	int compareAVL = 0;
@@ -42,7 +42,7 @@ int main () {
 		search_avl(AVL, num, &compareAVL);
 		// Do the search on all the 3 trees get how many comparisons was done in each one.
 
-		fprintf(data, "%d;%d;%d\n", num, compareAVL, compareABB);
+		fprintf(data, "%d;%d;%d\n", num, compareABB, compareAVL);
 		compareABB = 0;
 		compareAVL = 0;
 	}

@@ -5,7 +5,11 @@ HEADER = compression/header.h compression/header.c
 COMPRESS = compression/compress.h compression/compress.c
 DECOMPRESS = decompression/decompress.h decompression/decompress.c
 MAIN = ./main.c
+TEST = ./tests.c
 READFILE = readfile/readfile.h readfile/readfile.c
 
 compile_huff:
 	gcc $(HUFF) $(PQ) $(HASH) $(HEADER) $(COMPRESS) $(DECOMPRESS) $(READFILE) $(MAIN)  -o huffman -g
+
+compile_tests:
+	gcc $(HUFF) $(PQ) $(HASH) $(TEST) -o tests -lm -lcunit -g
