@@ -19,6 +19,7 @@ void insert(trie *root, char *word){
     trie *current = root;
     for(i=0;i<strlen(word);i++){
         index = alpha_key(word[i]);
+        printf("Index: %d\n", index);
         if(!current->itens[index]){
             current->itens[index] = create_empty_trie(word[i]);
         }
@@ -40,28 +41,38 @@ int find_letter_index(trie *trie){
 int search(trie *root, char *str){
     int level, index;
     trie *current = root;
-    char wordSuggestion[30];
+    if(root == NULL){
+        return 0;
+    }
     for(level=0;level<strlen(str);level++){
-        index = alpha_key(str[level]);
-        if(!current->itens[index]){
-            printf("Nenhuma sugestao encontrada\n");
-            return -1;
+        current = current->itens[str[level]];
+        if(current == NULL){
+            return 0;
         }
-        current = current->itens[index];
+        return 1;
     }
-    int i = 0;
-    while(!current->isLeaf){
-        int letter_index = find_letter_index(current);
-        if(letter_index == -1){
-            printf("Nenhuma sugestao encontrada\n");
-            return -1;
-        }
-        current = current->itens[letter_index];
-        wordSuggestion[i++] = current->value;
-    }
-    wordSuggestion[i] = '\0';
-    printf("%s%s\n", str, wordSuggestion);
-    return 1;
+    // char wordSuggestion[30];
+    // for(level=0;level<strlen(str);level++){
+    //     index = alpha_key(str[level]);
+    //     if(!current->itens[index]){
+    //         printf("Nenhuma sugestao encontrada\n");
+    //         return -1;
+    //     }
+    //     current = current->itens[index];
+    // }
+    // int i = 0;
+    // while(!current->isLeaf){
+    //     int letter_index = find_letter_index(current);
+    //     if(letter_index == -1){
+    //         printf("Nenhuma sugestao encontrada\n");
+    //         return -1;
+    //     }
+    //     current = current->itens[letter_index];
+    //     wordSuggestion[i++] = current->value;
+    // }
+    // wordSuggestion[i] = '\0';
+    // printf("%s%s\n", str, wordSuggestion);
+    // return 1;
 }
 int hasChild(trie *letter){
     int i;

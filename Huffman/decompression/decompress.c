@@ -11,7 +11,7 @@ unsigned char *get_trash_and_size_tree(FILE *compressed){
     unsigned char header_byte = (unsigned char)fgetc(compressed);
     header[0] = header_byte >> 5;
     unsigned char bits_from_tree = header_byte << 3;
-    header[1] = header_byte >> 3;
+    header[1] = bits_from_tree >> 3;
     header_byte = (unsigned char)fgetc(compressed);
     header[1] = header[1] << 8;
     header[1] = header[1] | header_byte;

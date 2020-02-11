@@ -19,8 +19,6 @@ node *create_tree_node(void *data, long int frequency, node *left, node *right){
 
 node *merge(node *bt, node *left, node *right, pq *queue){
     bt = create_node(left->frequency + right->frequency);
-    // printf("Left, data: %c freque: %ld\n", left->data, left->frequency);
-    // printf("right, data: %c freque: %ld\n\n", right->data, right->frequency);
     bt->left = left;
     bt->right = right;
     enqueue_tree(bt->left, bt->right, bt, queue);
@@ -37,12 +35,10 @@ node *build_tree(pq *pq, node *bt){
 }
 
 node *create_tree_from_file(FILE *compressed, node *huff_tree){
-    // if(size < 0) return huff_tree;
     unsigned char byte;
     fscanf(compressed, "%c", &byte);
     unsigned char *aux = (unsigned char*) malloc(sizeof(unsigned char));
     *aux = byte;
-    // printf("Nó: %d\n", byte);
     if(byte == '*'){
         huff_tree = create_tree_node(aux, 0, NULL, NULL);
         huff_tree->left = create_tree_from_file(compressed, huff_tree->left);

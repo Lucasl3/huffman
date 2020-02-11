@@ -12,7 +12,7 @@ node *create_node(long int f);
 
 node *add(node *head, unsigned char data);
 
-void enqueue_pq(pq *pq, node *head);
+void enqueue_pq(pq *pq, node *n);
 
 void enqueue_tree(node *left, node *right, node *bt, pq *queue);
 

@@ -21,16 +21,16 @@ node *create_node(long int f){
     return new_node;
 }
 
-void enqueue_pq(pq *pq, node *head){
+void enqueue_pq(pq *pq, node *n){
     node *new_node = (node*) malloc(sizeof(node));
-    new_node->data = head->data;
-    new_node->frequency = head->frequency;
-    if(pq->head == NULL || (head->frequency < pq->head->frequency)){
+    new_node->data = n->data;
+    new_node->frequency = n->frequency;
+    if(pq->head == NULL || (n->frequency < pq->head->frequency)){
         new_node->next = pq->head;
         pq->head = new_node;
     } else{
         node *current = pq->head;
-        while((current->next != NULL) && (current->next->frequency < head->frequency)){
+        while((current->next != NULL) && (current->next->frequency < n->frequency)){
             current = current->next;
         }
         new_node->next = current->next;
@@ -40,7 +40,6 @@ void enqueue_pq(pq *pq, node *head){
 
 void enqueue_tree(node *left, node *right, node *bt, pq *queue){
     node *new_node = create_tree_node(bt->data, bt->frequency, left, right);
-    // printf("Pai: %c left: %c right %c\n", new_node->data, new_node->left->data, new_node->right->data);
     if(queue->head == NULL || (bt->frequency < queue->head->frequency)){
         new_node->next = queue->head;
         queue->head = new_node;

@@ -16,8 +16,6 @@ void compress(FILE *file, ht *hash, node *bt, char *file_path){
     unsigned char buffer;
     while(fscanf(file, "%c", &buffer) != EOF){
         node *current = hash->table[buffer]->fila->front;
-        // printf("Ascii: %d ", buffer);
-        // printf("Caractere: %c\n", buffer);
         while(current != NULL){
             byte_size++;
             byte = byte << 1;
@@ -32,7 +30,6 @@ void compress(FILE *file, ht *hash, node *bt, char *file_path){
             current = current->next;
         }
     }
-    // printf("\n");
     if(byte_size > 0){
         byte = byte << (8 - byte_size);
         unsigned char aux = byte;

@@ -35,7 +35,7 @@ void start_compression(char *file_path){
     int treesize = 0;
     count_tree_size(bt, &treesize);
     create_header(trash_size(hash_table), treesize);
-    print_ht(hash_table);
+    // print_ht(hash_table);
     compress(file, hash_table, bt, file_path);
 }
 void start_decompression(char *file_path){
